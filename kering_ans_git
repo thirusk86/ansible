@@ -1,6 +1,6 @@
 ---
 - name: Use Shell Module to retrieve data and timestamp from the OS
-  hosts: cst-lab-cisco-router
+  hosts: cst-lab-cisco-router, localhost
   tasks:
 
   - name: Get timestamp from system, include the first 5 nanosec digits
@@ -18,13 +18,8 @@
   gather_facts: no
 
   tasks:
-    - name: Ensure backup directory exists
-      ansible.builtin.file:
-        path: /home/ubuntu/ans_playbooks/backups
-        state: directory
-      become: yes
 
-    - name: Backup Cisco configuration
+    - name: Backup Cisco configuration #copy the backup file
       ios_command:
         commands:
           - "show running-config"
@@ -34,22 +29,25 @@
     - name: Save the configuration backup to a file
       ansible.builtin.copy:
         content: "{{ config_backup.stdout[0] }}"
-        dest: "/home/ubuntu/ans_playbooks/backups_{{ cur_time_ns }}.txt"
+        dest: "/home/ubuntu/ans_playbooks/backups/Rasf1002HX_PT75_347.txt"
       become: yes
 
-- name: Push file to AWS S3 bucket
-  hosts: cst-lab-cisco-router
+- name: Commit file to git
+  hosts: localhost
+  connection: local
+  tags: git
   gather_facts: no
 
   tasks:
+    - name: Add and Commit Changes to Git
+      shell: |
+        cd /home/ubuntu/ans_playbooks/
+        git add .
+        git commit -m "Adding Directory {{cur_date}}"
+        git push -u origin main
+        # Needed as git commit will fail if there are no changed files
+        exit 0
+      args:
+        chdir: "/home/ubuntu/ans_playbooks/backups"
 
-  - name: Upload config file to S3 bucket
-    amazon.aws.aws_s3:
-      bucket: seb-ms20
-      mode: put
-      object: "ansible-backup/{{cur_date}}/RT_Cisco_ASR-1002HX_PT75_347_{{ cur_time_ns }}.txt"
-      src: "//home/ubuntu/ans_playbooks/backups_{{ cur_time_ns }}.txt"
-    register: putresult
-
-  
 
