@@ -1,0 +1,22 @@
+---
+- name: Turn on Cisco switch remotely
+  hosts: cst-lab-cisco-router  # Update with the hostname or group name from your Ansible inventory
+  gather_facts: no  # We don't need to gather facts for this task
+
+  tasks:
+    - name: Enable the switch
+      ios_command:
+        commands:
+          - "enable"
+          - "configure terminal"
+          - "no power enable"
+
+      register: result
+
+    - name: Save configuration
+      ios_command:
+        commands:
+          - "write memory"
+
+      when: "result.stdout | search('enabled')"
+

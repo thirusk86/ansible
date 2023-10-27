@@ -1,0 +1,55 @@
+---
+- name: Use Shell Module to retrieve data and timestamp from the OS
+  hosts: cst-lab-cisco-router
+  tasks:
+
+  - name: Get timestamp from system, include the first 5 nanosec digits
+    shell: "date +%Y-%m-%d-%H-%M-%S.%5N"
+    register: tstamp_ns
+
+  - name: Set variables
+    set_fact:
+     cur_time_ns: "{{ tstamp_ns.stdout[0:16] }}"
+     cur_date: "{{ tstamp_ns.stdout[0:10] }}"
+
+
+- name: Save Cisco Configuration Backup
+  hosts: cst-lab-cisco-router
+  gather_facts: no
+
+  tasks:
+    - name: Ensure backup directory exists
+      ansible.builtin.file:
+        path: /home/ubuntu/ans_playbooks/cisco-router-config-directory
+        state: directory
+      become: yes
+
+    - name: Backup Cisco configuration
+      ios_command:
+        commands:
+          - "show running-config"
+      register: config_backup
+      become: yes
+
+    - name: Save the configuration backup to a file
+      ansible.builtin.copy:
+        content: "{{ config_backup.stdout[0] }}"
+        dest: "/home/ubuntu/ans_playbooks/cisco-router-config-directory/cisco_config_backup_{{ cur_time_ns }}.txt"
+      become: yes
+
+- name: Push file to AWS S3 bucket
+  hosts: cst-lab-cisco-router
+  gather_facts: no
+
+  tasks:
+
+  - name: Upload config file to S3 bucket
+    amazon.aws.aws_s3:
+      bucket: seb-ms20
+      mode: put
+      object: "ansible-backup/{{cur_date}}/RT_Cisco_ASR-1002HX_PT75_347_{{ cur_time_ns }}.txt"
+      src: "/home/ubuntu/ans_playbooks/cisco-router-config-directory/cisco_config_backup_{{ cur_time_ns }}.txt"
+    register: putresult
+
+  
+
