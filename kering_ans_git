@@ -29,7 +29,7 @@
     - name: Save the configuration backup to a file
       ansible.builtin.copy:
         content: "{{ config_backup.stdout[0] }}"
-        dest: "/home/ubuntu/ans_playbooks/backups/Rasf1002HX_PT75_347.txt"
+        dest: "/home/ubuntu/ans_playbooks/backups/RT_Cisco_ASR-1002HX_PT75_347.txt"
       become: yes
 
 - name: Commit file to git
@@ -43,7 +43,7 @@
       shell: |
         cd /home/ubuntu/ans_playbooks/
         git add .
-        git commit -m "Adding Directory {{cur_date}}"
+        git commit -m "Adding Directory {{cur_time_ns}}"
         git push -u origin main
         # Needed as git commit will fail if there are no changed files
         exit 0
