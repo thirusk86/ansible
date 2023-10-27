@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 4709 bytes
+Current configuration : 4708 bytes
 !
-! Last configuration change at 10:25:05 UTC Thu Oct 26 2023 by ec2-user
+! Last configuration change at 07:51:14 UTC Fri Oct 27 2023 by ec2-user
 !
 version 17.3
 service timestamps debug datetime msec
@@ -12,7 +12,7 @@ platform qfp utilization monitor load 80
 platform punt-keepalive disable-kernel-core
 platform console virtual
 !
-hostname ip-172-31-42-188
+hostname Kering-demo-csr
 !
 boot-start-marker
 boot-end-marker
