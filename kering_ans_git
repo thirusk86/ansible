@@ -1,8 +1,6 @@
 ---
 - name: Use Shell Module to retrieve data and timestamp from the OS
   hosts: cst-lab-cisco-router, localhost
-  vars:
-    ansible_remote_tmp: /tmp
   tasks:
 
   - name: Get timestamp from system, include the first 5 nanosec digits
