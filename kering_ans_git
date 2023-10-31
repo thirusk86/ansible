@@ -43,7 +43,7 @@
       shell: |
         cd /home/ubuntu/ans_playbooks/
         git add .
-        git commit -m "{{cur_time_ns}}"
+        git commit -m "Backup {{cur_time_ns}}"
         git push -u origin main
         # Needed as git commit will fail if there are no changed files
         exit 0
