@@ -64,8 +64,5 @@
         login_user: ict
         login_password: password
         login_db: ict2
-        query: UPDATE kering_scheduled_backup_jobs SET status='Completed', git_commit_hash = %(hash_val)s WHERE id = %(id_val)s
-        named_args:
-          id_val: my_job_id
-          hash_val: last_commit_hash
+        query: UPDATE kering_scheduled_backup_jobs SET status='Completed', git_commit_hash = '{{last_commit_hash}}' WHERE id = {{my_job_id}}
 
