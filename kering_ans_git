@@ -69,8 +69,8 @@
           id_val: 119
           hash_val: last_commit_hash
           status_val: Completed
-        register: contact_email
-        
+      register: contact_email
+
     - name: Output
       ansible.builtin.debug:
         msg: "{{ contact_email }}"
