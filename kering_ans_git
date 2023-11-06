@@ -37,6 +37,9 @@
 
 - name: Commit file to git
   hosts: localhost
+  vars:
+    my_ci_name: "{{ci_name}}"
+    my_job_id: "{{job_id}}"
   connection: local
   tags: git
   gather_facts: no
