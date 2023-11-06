@@ -67,7 +67,7 @@
         query: UPDATE kering_scheduled_backup_jobs SET status = %(status_val)s, git_commit_hash = %(hash_val)s WHERE id = %(id_val)s
         named_args:
           id_val: 119
-          hash_val: "{{last_commit_hash}}"
+          hash_val: "{{last_commit_hash.stdout}}"
           status_val: Completed
       register: contact_email
 
