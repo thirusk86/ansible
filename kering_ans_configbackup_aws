@@ -47,7 +47,7 @@
     amazon.aws.aws_s3:
       bucket: seb-ms20
       mode: put
-      object: "ansible-backup/{{cur_date}}/RT_Cisco_ASR-1002HX_PT75_347_{{ cur_time_ns }}.txt"
+      object: "ansible-backup/{{cur_date}}/RT_Cisco_ASA-5545X_JP62_377_{{ cur_time_ns }}.txt"
       src: "//home/ubuntu/ans_playbooks/backups_{{ cur_time_ns }}.txt"
     register: putresult
 
