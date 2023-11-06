@@ -17,6 +17,7 @@
   hosts: cst-lab-cisco-router
   vars:
     my_ci_name: "{{ci_name}}"
+    my_job_id: "{{job_id}}"
   gather_facts: no
 
   tasks:
@@ -51,5 +52,20 @@
         exit 0
       args:
         chdir: "/home/ubuntu/ans_playbooks/backups"
+    
+    - name: Get last commit hash from GIT
+      shell: |
+        cd /home/ubuntu/ans_playbooks/
+        git log --format="%H" -n 1
+      register: last_commit_hash
 
+    - name: Update database with job status and hash 
+      community.mysql.mysql_query:
+        login_user: root
+        login_password: 
+        login_db: test_db
+        query: UPDATE kering_scheduled_backup_jobs SET status='Completed', git_commit_hash = %(hash_val)s WHERE id = %(id_val)s
+        named_args:
+          id_val: my_job_id
+          hash_val: last_commit_hash
 
