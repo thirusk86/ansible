@@ -12,7 +12,6 @@
      cur_time_ns: "{{ tstamp_ns.stdout[0:16] }}"
      cur_date: "{{ tstamp_ns.stdout[0:10] }}"
 
-
 - name: Save Cisco Configuration Backup
   hosts: cst-lab-cisco-router
   vars:
