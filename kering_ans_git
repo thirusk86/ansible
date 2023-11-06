@@ -63,7 +63,7 @@
       community.mysql.mysql_query:
         login_user: root
         login_password: 
-        login_db: test_db
+        login_db: ict2
         query: UPDATE kering_scheduled_backup_jobs SET status='Completed', git_commit_hash = %(hash_val)s WHERE id = %(id_val)s
         named_args:
           id_val: my_job_id
