@@ -1,0 +1,223 @@
+Building configuration...
+
+Current configuration : 4891 bytes
+!
+! Last configuration change at 06:59:45 UTC Mon Nov 6 2023 by ec2-user
+!
+version 17.3
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+platform qfp utilization monitor load 80
+platform punt-keepalive disable-kernel-core
+platform console virtual
+!
+hostname STL-Cube-CSR-JP
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition GS
+ rd 100:100
+ !
+ address-family ipv4
+ exit-address-family
+!
+logging persistent size 1000000 filesize 8192 immediate
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+login on-success log
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-2695224541
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2695224541
+ revocation-check none
+ rsakeypair TP-self-signed-2695224541
+!
+!
+crypto pki certificate chain TP-self-signed-2695224541
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 32363935 32323435 3431301E 170D3233 31303235 31303430 
+  31345A17 0D333331 30323431 30343031 345A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D32 36393532 
+  32343534 31308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 0100D4D6 75EAD9E3 5E0720E3 E591B003 8B2B4F44 566DBA9F 2CC6EC88 
+  AAFB3E7D 282D7BAD 67E5FD69 3DD6C176 A9F4E92B 56DDF887 CEE9D038 829D486A 
+  1EC45E6F 73AD3765 C5BC9031 C8EB0679 24AC9796 73240EDA 810FA306 13477FC1 
+  A5ED6566 0A0E5A02 A27FFD5B 5A79046C 52B27763 55019654 BF6103C7 7CBD11A1 
+  28C3B272 97E63441 395B499D 9BA7BC0A 2C0E29E7 08FFEA19 3FD00ED7 FCA4073C 
+  8E9EB42E 51BDF46A 1F691438 E1EAA948 E7F7DFC3 D1147D22 1C637BBA 738835D3 
+  71CD0272 28F09695 60D12E62 1968D7AA D99C7516 ED533EF9 4B9AF26B 3DEB03E3 
+  51843F05 CB005B25 32EC9577 4EB892C1 5A326EDE F8E87BE6 ECF321D9 CD6F5177 
+  E455C1C9 C2450203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 14F4D5B8 93465BFA 72D3F15A ABD8704B AA4F93B9 
+  0E301D06 03551D0E 04160414 F4D5B893 465BFA72 D3F15AAB D8704BAA 4F93B90E 
+  300D0609 2A864886 F70D0101 05050003 82010100 BBD6A5C9 A6D691B6 B72BF70C 
+  1E6A224A 2FC1881E 5296FD9A AEA924B7 0FCC43F3 E9A85D1C 3B896AE1 F8C99090 
+  54BC65AD A0867173 AC35F3B8 C2BA87F6 61AE9EB1 D9DCA4FE 43103A58 AE4F461D 
+  E1BE1DA3 3C91742A D57B1931 2590ED1C B4AC52F1 294ABEF5 0D52DA4C 0CB6A2DC 
+  DFA7CE3F 28936A96 0F6D4BC9 BA85E9A9 7B1106B8 2A7AA60D 92434974 07FBF18E 
+  8C5F1473 F878BD51 6C42DA41 B02C7837 15E5D7CF 490A7755 FDD6C945 4B0814FE 
+  E6825669 7FD9E272 E1311836 CB5C3FD4 47A2D780 822353C6 5E4E4341 0DCA1171 
+  D18AB743 8EF7F6AD 9188ECEF 2EDF3170 B506D247 5C73C283 9C9C3BFF 11742D06 
+  391D2683 D30DB63E 58986DBF 068669EF E77F61F8
+  	quit
+!
+license udi pid CSR1000V sn 97OLNSVEUXB
+no license smart enable
+diagnostic bootup level minimal
+memory free low-watermark processor 71464
+!
+!
+spanning-tree extend system-id
+!
+username ec2-user privilege 15
+username cisco_support privilege 15 secret 8 $8$v2dE1R29ZleIrU$y06z2iXxrZI1PSwUtkFAh/HWxLWrCFl7CE64AwSWk6g
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface VirtualPortGroup0
+ vrf forwarding GS
+ ip address 192.168.35.101 255.255.255.0
+ ip nat inside
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet1
+ ip address dhcp
+ ip nat outside
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+!
+router eigrp 109
+!
+!
+router eigrp 108
+!
+iox
+ip forward-protocol nd
+ip tcp window-size 8192
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip nat inside source list GS_NAT_ACL interface GigabitEthernet1 vrf GS overload
+ip route 0.0.0.0 0.0.0.0 GigabitEthernet1 172.31.32.1
+ip route vrf GS 0.0.0.0 0.0.0.0 GigabitEthernet1 172.31.32.1 global
+ip ssh rsa keypair-name ssh-key
+ip ssh version 2
+ip ssh pubkey-chain
+  username ec2-user
+   key-hash ssh-rsa 720517953DFBE3AEA04B14961ACB259B ec2-user
+ip ssh server algorithm publickey ecdsa-sha2-nistp256 ecdsa-sha2-nistp384 ecdsa-sha2-nistp521 ssh-rsa x509v3-ecdsa-sha2-nistp256 x509v3-ecdsa-sha2-nistp384 x509v3-ecdsa-sha2-nistp521
+ip scp server enable
+!
+ip access-list standard GS_NAT_ACL
+ 10 permit 192.168.35.0 0.0.0.255
+!
+!
+!
+!
+snmp-server group GrpMonitoring v3 priv read ViewDefault 
+snmp-server view ViewDefault iso included
+snmp-server community public RO
+snmp-server community private RW
+snmp-server community cisco.com RW
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 20
+ login local
+ transport input ssh
+!
+!
+!
+!
+!
+!
+app-hosting appid guestshell
+ app-vnic gateway1 virtualportgroup 0 guest-interface 0
+  guest-ipaddress 192.168.35.102 netmask 255.255.255.0
+ app-default-gateway 192.168.35.101 guest-interface 0
+ name-server0 8.8.8.8
+end
