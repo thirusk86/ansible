@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 4908 bytes
+Current configuration : 4947 bytes
 !
-! Last configuration change at 01:18:09 UTC Wed Nov 8 2023 by ec2-user
+! Last configuration change at 01:23:26 UTC Wed Nov 8 2023 by ec2-user
 !
 version 17.3
 service timestamps debug datetime msec
@@ -12,7 +12,7 @@ platform qfp utilization monitor load 80
 platform punt-keepalive disable-kernel-core
 platform console virtual
 !
-hostname Test_fornew
+hostname 5545X-JP62-37
 !
 boot-start-marker
 boot-end-marker
@@ -194,6 +194,7 @@ snmp-server view ViewDefault iso included
 snmp-server community public RO
 snmp-server community private RW
 snmp-server community cisco.com RW
+snmp-server host 18.136.253.230 v2c 
 !
 !
 !
