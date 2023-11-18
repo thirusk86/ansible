@@ -71,9 +71,3 @@
           id_val: "{{my_job_id}}"
           hash_val: "{{last_commit_hash.stdout}}"
           status_val: Completed
-      register: contact_email
-
-    - name: Output
-      ansible.builtin.debug:
-        msg: "{{ contact_email }}"
-
