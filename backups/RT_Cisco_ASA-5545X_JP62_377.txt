@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 4989 bytes
+Current configuration : 4991 bytes
 !
-! Last configuration change at 02:39:53 UTC Fri Nov 24 2023 by ec2-user
+! Last configuration change at 05:14:13 UTC Fri Nov 24 2023 by ec2-user
 !
 version 17.3
 service timestamps debug datetime msec
@@ -12,7 +12,7 @@ platform qfp utilization monitor load 80
 platform punt-keepalive disable-kernel-core
 platform console virtual
 !
-hostname STL-JP62-377
+hostname 5545X-JP62-377
 !
 boot-start-marker
 boot-end-marker
